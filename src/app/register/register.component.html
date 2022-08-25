@@ -1,0 +1,108 @@
+
+
+
+          <h1>Register Form</h1>
+  
+          <form [formGroup]="userForm" (ngSubmit)="submit()">
+      
+            
+            <!--name-->
+            <div class="form-group inputBox">
+
+              <label>Name:</label>
+              <input formControlName="name" id="name" type="text" class="form-control" required>
+              
+              <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                <div *ngIf="f.name.errors.required" style="color: red;">ContactNo is required.</div>
+              </div>
+              </div>
+
+
+               <!--contactNo-->
+            <div class="form-group inputBox">
+
+              <label>Contact No:</label>
+              <input formControlName="contactNo" id="contactNo" type="text" class="form-control" required>
+              
+              <div *ngIf="f.contactNo.touched && f.contactNo.invalid" class="alert alert-danger">
+                <div *ngIf="f.contactNo.errors.required" style="color: red;">ContactNo is required.</div>
+              </div>
+              
+               </div>
+             
+                <!--address-->
+            <div class="form-group inputBox">
+
+              <label>Adderss:</label>
+              <input formControlName="address" id="address" type="text" class="form-control" required>
+              
+              <div *ngIf="f.address.touched && f.address.invalid" class="alert alert-danger">
+                <div *ngIf="f.address.errors.required" style="color: red;">address is required.</div>
+              </div>
+              
+               </div>
+
+                  <!--userName-->
+            <div class="form-group inputBox">
+
+              <label>User Name:</label>
+              <input formControlName="userName" id="userName" type="text" class="form-control" required>
+              
+              <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+                <div *ngIf="f.userName.errors.required" style="color: red;">userName is required.</div>
+              </div>
+              
+               </div>
+             
+
+               
+                  <!--password-->
+            <div class="form-group inputBox">
+
+              <label>Password:</label>
+              <input formControlName="password" id="password" type="text" class="form-control" required>
+              
+              <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+                <div *ngIf="f.userName.errors.required" style="color: red;">userName is required.</div>
+              </div>
+              
+               </div>
+
+               
+
+                <!-- accountNumber-->
+            <div class="form-group inputBox">
+
+              <label>Account Number:</label>
+              <input formControlName="accountNumber" id="accountNumber" type="text" class="form-control" required>
+              
+              <div *ngIf="f.accountNumber.touched && f.accountNumber.invalid" class="alert alert-danger">
+                <div *ngIf="f.accountNumber.errors.required" style="color: red;">account number is required.</div>
+              </div>
+              
+               </div>
+
+               <!--role -->
+               <div class="form-group inputBox">
+               <label for="user" class="label">Who are you:</label>&nbsp;&nbsp;
+                <select formControlName="role" name="role" class="input" id="role"  class="form-control" required>
+                  <option value="Farmer" selected style="color: black;">Farmer</option>
+                  <option value="Dealer" style="color: black;">Dealer</option>
+                </select>
+
+                <div *ngIf="f.role.touched && f.role.invalid" class="alert alert-danger">
+                  <div *ngIf="f.role.errors.required" style="color: red;">role is required.</div>
+                </div>
+
+              </div>
+
+               
+                   
+                <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+                <button class="btn btn-secondary" type="reset" >Reset</button>
+              
+        
+          
+          </form>
+
+

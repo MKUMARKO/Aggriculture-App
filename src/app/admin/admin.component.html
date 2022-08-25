@@ -1,0 +1,129 @@
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" >
+
+    <!--user management start-->
+    <mat-tab label="User-Management" >
+
+       
+
+      <div class="container" >
+      
+      
+        <table datatable class="table">
+          <thead>
+            <tr>
+              <th scope="col">user Id</th>
+              <th scope="col">Name</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Contact No</th>
+              <th scope="col">Address</th>
+              <th scope="col">Role</th>
+              <th scope="col">Account No</th>
+              <th scope="col">
+                  <input class="form-control" name="id" style="width: 160px;" matInput [(ngModel)]="id"  (ngModelChange)="getUserById()" placeholder="Search for user" >
+              </th>
+              
+              
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userList">
+               <td>{{user.id}}</td>
+              <td>{{user.name}}</td>
+              <td>{{user.userName}}</td>
+              <td>{{user.contactNo}}</td>
+              <td>{{user.address}}</td>
+              <td>{{user.role}}</td>
+              <td>{{user.accountNumber}}</td>
+              <td>
+                <button mat-raised-button color="warn" (click)="refresh()" (click)=deleteUser(user)   > Delete</button>
+                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </mat-tab>
+    <!--user management ends-->
+
+<!--=============================================================================================================================================-->   
+<!--=============================================================================================================================================-->   
+<!--==================================================CROP MANAGEMENT=======================================================================-->   
+<!--=============================================================================================================================================-->   
+<!--=============================================================================================================================================-->   
+    <!--crop management start-->
+    <mat-tab label="Crop-Management">
+
+
+      <div class="container" >
+        
+          
+      
+      
+        <table datatable class="table">
+          <thead>
+            <tr>
+              <th scope="col">Crop id</th>
+              <th scope="col">Crop Name</th>
+              <th scope="col">Farmer Id</th>
+              <th scope="col">Uploaded By</th>
+              <th scope="col">Address</th>
+              <th scope="col">Quantity</th>
+
+              <th scope="col">Crop Type</th>
+              <th scope="col"> Crop url</th>
+              <th scope="col">Crop Description</th>
+              <th scope="col">Crop Price</th>
+              
+              <th scope="col">
+                <div class="search-hero">
+                  <input class="form-control" name="id"  style="width: 160px;" matInput [(ngModel)]="id"  (ngModelChange)="getCropById()" autocomplete="off" placeholder="Search for user" >
+                </div>
+              </th>
+              
+              
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let crop of cropList ">
+                <td>{{crop.id}}</td> 
+                <td>{{crop.cropName}}</td>
+                <td>{{crop.farmerId}}</td>
+                <td>{{crop.uploadedBy}}</td>
+                <td>{{crop.address}}</td>
+                <td>{{crop.cropQty}}</td>
+                <td>{{crop.cropType}}</td>
+                <td>{{crop.ImgUrl}}</td>
+                <td>{{crop.cropDesc}}</td>
+                <td>{{crop.cropPrice}}</td>
+               
+                
+              <td>
+                <button mat-raised-button color="warn" (click)="refresh()" (click)=deleteCrop(crop)   > Delete</button>
+                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </mat-tab>
+      
+      
+     
+    <!--crop management ends-->
+
+
+
+
+
+
+<!--=============================================================================================================================================-->   
+<!--=============================================================================================================================================-->   
+<!--==================================================ORDER MANAGEMENT=======================================================================-->   
+<!--=============================================================================================================================================-->   
+<!--=============================================================================================================================================-->   
+
+    <mat-tab label="Order-Management"> Content 4 </mat-tab>
+  </mat-tab-group>
