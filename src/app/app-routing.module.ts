@@ -5,6 +5,7 @@ import { DealerComponent } from './dealer/dealer.component';
 import { FarmerComponent } from './farmer/farmer.component';
 import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { HomeComponent } from './home/home.component';
+
 import { LoginComponent } from './login/login.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';

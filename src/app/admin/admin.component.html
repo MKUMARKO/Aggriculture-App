@@ -11,6 +11,7 @@
         <table datatable class="table">
           <thead>
             <tr>
+              <th scope="col">Sl.No</th>
               <th scope="col">user Id</th>
               <th scope="col">Name</th>
               <th scope="col">User Name</th>
@@ -27,7 +28,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of userList">
+            <tr *ngFor="let user of userList ;let i = index">
+              <th scope="row">{{i+1}}</th>
                <td>{{user.id}}</td>
               <td>{{user.name}}</td>
               <td>{{user.userName}}</td>
@@ -56,13 +58,10 @@
 
 
       <div class="container" >
-        
-          
-      
-      
         <table datatable class="table">
           <thead>
             <tr>
+              <th scope="col">Sl.No</th>
               <th scope="col">Crop id</th>
               <th scope="col">Crop Name</th>
               <th scope="col">Farmer Id</th>
@@ -76,17 +75,18 @@
               <th scope="col">Crop Price</th>
               
               <th scope="col">
-                <div class="search-hero">
-                  <input class="form-control" name="id"  style="width: 160px;" matInput [(ngModel)]="id"  (ngModelChange)="getCropById()" autocomplete="off" placeholder="Search for user" >
-                </div>
+                
+                  <input class="form-control" name="search"  style="width: 160px;" matInput [(ngModel)]="search"  autocomplete="off" placeholder="Search" >
+                
               </th>
               
               
               
             </tr>
           </thead>
-          <tbody>
-            <tr *ngFor="let crop of cropList ">
+          <tbody>                              <!--search pipes-->
+            <tr *ngFor="let crop of cropList | filterSearch: search ;let i = index" >
+              <th scope="row">{{i+1}}</th>
                 <td>{{crop.id}}</td> 
                 <td>{{crop.cropName}}</td>
                 <td>{{crop.farmerId}}</td>
@@ -125,5 +125,69 @@
 <!--=============================================================================================================================================-->   
 <!--=============================================================================================================================================-->   
 
-    <mat-tab label="Order-Management"> Content 4 </mat-tab>
+    
+
+
+    <mat-tab label="Order-Management">
+
+
+      <div class="container" >
+        <table datatable class="table">
+          <thead>
+            <tr>
+              <th scope="col">Sl.No</th>
+              <th scope="col">Order Id</th>
+              <th scope="col">Dealer Id</th>
+              <th scope="col">Farmer Id</th>
+              <th scope="col">Crop Id</th>
+
+              <th scope="col"> Dealer Name</th>
+              <th scope="col">Farmer Name</th>
+              <th scope="col">Crop Name</th>
+
+              <th scope="col">Dealer Mobile</th>
+              <th scope="col"> Farmer Mobile</th>
+              <th scope="col">Order Status</th>
+              
+              
+              <th scope="col">
+                
+                  <input class="form-control" name="search"  style="width: 160px;" matInput [(ngModel)]="ordersearch"  autocomplete="off" placeholder="Search" >
+                
+              </th>
+              
+              
+              
+            </tr>
+          </thead>
+          <tbody>                              <!--search pipes-->
+            <tr *ngFor="let order of orderList | orderSearch: ordersearch ;let i = index" >
+              <th scope="row">{{i+1}}</th>
+                <td>{{order.orderId}}</td>
+                <td>{{order.dealerId}}</td>
+                <td>{{order.farmerId}}</td>
+                <td>{{order.cropId}}</td>
+                
+                <td>{{order.dealerName}}</td>
+                <td>{{order.farmerName}}</td>
+                <td>{{order.cropName}}</td>
+                <td>{{order.dealerMobile}}</td>
+                <td>{{order.farmerMobile}}</td>
+                <td>{{order.orderStatus}}</td>
+
+                
+               
+                
+              <td>
+                <button mat-raised-button color="warn" (click)="refresh()" (click)=deleteOrder(order)   > Delete</button>
+                
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+    </mat-tab>
+
+
   </mat-tab-group>

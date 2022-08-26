@@ -21,13 +21,13 @@ export class CropService {
 // get all crops
  public getAllCrop(){
 
-  return this.httpclient.get(this.PATH_OF_API + '/home/viewAllCrop', { 
+  return this.httpclient.get(this.PATH_OF_API + '/homee/viewAllCrop', { 
     headers:this.requestHeader,});
 
   }
  // delete grop
   public deleteCrop(id: any) {
-    return this.httpclient.delete(this.PATH_OF_API + '/home/deleteCrop/' + id ,{
+    return this.httpclient.delete(this.PATH_OF_API + '/homee/deleteCrop/' + id ,{
 
       headers:this.requestHeader,
       

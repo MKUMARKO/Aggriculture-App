@@ -1,5 +1,32 @@
-<div class="container mt-5">
-   <div class="card text-center" style="padding: 20px;">
-    <h1>This is Home Page</h1>
-   </div>
+<input type="text" class="form-control"  placeholder="Enter Keyword for filter result" [(ngModel)]="search" style="width: 23rem;">
+      <div style="align-content: center;">
+  <div class="row" >
+  <div *ngFor="let crop of cropList | filterSearch:search" class="col-lg-auto">
+    <div class="card p-3 bg-white" style="width: 20rem;"><i class="fa fa-apple"></i>
+        <div class="about-product text-center mt-2"><img src="{{crop.cropImgUrl}}" width="220" height="200">
+            <div>
+                <h4>{{crop.cropName}}</h4>
+                <p>{{crop.cropDesc}}</p>
+            </div>
+        </div>
+        <div class="stats mt-2">
+            <!-- <div class="d-flex justify-content-between p-price"><span>Negotiable price:</span><span>₹ {{crop.cropPrice}}</span></div> -->
+            <div class="d-flex justify-content-between p-price font-weight-bold"><span>Crop quantity:</span><span>{{crop.cropQty}} Kg</span></div>
+            <div class="d-flex justify-content-between p-price font-weight-bold"><span>Crop Type:</span><span>{{crop.cropType}}</span></div>
+            <!-- {{getFarmer(crop.farmerId)}} -->
+    
+            <!-- <div id="fdetails"> {{currentFarmer.location}}</div> -->
+        </div>
+        <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>Negotiable price:</span><span>₹ {{crop.cropPrice}}/Kg</span></div>
+        <button mat-raised-button (click)="getFarmer(crop)" data-toggle="modal" data-target="#fdetails" >More-details</button>
+    </div>
+   <br>
+    <!-- <div id="fdetails"> {{currentFarmer.location}}</div> -->
 </div>
+
+</div>
+
+</div>
+
+
+

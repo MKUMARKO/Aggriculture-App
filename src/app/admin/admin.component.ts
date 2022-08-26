@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CropService } from '../_services/crop.service';
+import { OrderService } from '../_services/order.service';
 
 @Component({
   selector: 'app-admin',
@@ -17,9 +18,14 @@ export class AdminComponent implements OnInit {
 
   
   
-  constructor( private userService: UserService, private httpClient: HttpClient , private cropService : CropService) { 
-    this.getUserDetails();
-    this.getAllCrop();
+  constructor( private userService: UserService,
+               private httpClient: HttpClient , 
+               private cropService : CropService,
+               private orderService : OrderService
+               ) { 
+                              this.getUserDetails();
+                              this.getAllCrop();
+                              this.getAllOrder();
   }
 
   ngOnInit(): void {
@@ -31,6 +37,9 @@ export class AdminComponent implements OnInit {
 userList= null as any;
 cropList= null as any;
 orderList= null as any;
+search ="";
+id: any;
+ordersearch="";
 
 
 // Get all the users 
@@ -64,7 +73,7 @@ deleteUser(user:any) {
 }
 
 // get user by id
-id: any;
+
 getUserById(){
 
   if(this.id==""){
@@ -113,21 +122,47 @@ deleteCrop(crop:any) {
 }
 
 //get crop by id
-getCropById(){
-  if(this.id==""){
-    this.getAllCrop();
-  }
-  else{
-    this.cropList=this.cropList.filter(res =>{
-      return res.id.match(this.id | this.id);
-    })
-  }
 
+aa:boolean=false;
+
+setIndex(ii){
+  this.aa=ii;
+  console.log
 }
 
-searchText:any;
+////////////////////////////////---------Order Management--------------//////////////////////////////////
+
+// Get all the order
+getAllOrder() {
+  this.orderService.getAllOrder().subscribe(
+    (resp) => {
+      console.log(resp);
+      this.orderList = resp;
+      
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
 
 
+//delete crop
+
+deleteOrder(order:any) {
+  this.orderService.deleteOrder(order.id).subscribe(
+    (resp) => {
+      console.log(resp);
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+  confirm('do you want to delete the order')
+  this.ngOnInit();
+
+ 
+}
 
 
 

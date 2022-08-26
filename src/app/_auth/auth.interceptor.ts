@@ -1,4 +1,5 @@
-import {
+
+/*import {
     HttpErrorResponse,
   HttpEvent,
   HttpHandler,
@@ -43,14 +44,41 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 
-
+  
   private addToken(request:HttpRequest<any>, token:string) {
       return request.clone(
           {
               setHeaders: {
-                  Authorization : `Bearer ${token}`
+                Authorization : "Beare "+token
               }
           }
       );
+  }
+}
+*/
+
+
+
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor
+} from '@angular/common/http';
+import { UserAuthService } from '../_services/user-auth.service';
+import { Observable } from 'rxjs/Observable';
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(public auth: UserAuthService) {}
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    
+    request = request.clone({
+      setHeaders: {
+        Authorization: `${this.auth.getToken()}`,
+       
+      }
+    });
+    return next.handle(request);
   }
 }

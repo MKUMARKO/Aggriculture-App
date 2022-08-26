@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
@@ -25,7 +25,16 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { CropService } from './_services/crop.service';
+
+import { OrderService } from './_services/order.service';
+import { SearchPipe } from './_pipes/search.pipe';
+import { HomeComponent } from './home/home.component';
+import { OrderSearchPipe } from './_pipes/order-search.pipe';
+
+
+
 
 @NgModule({
   declarations: [
@@ -38,7 +47,10 @@ import { CropService } from './_services/crop.service';
     ForbiddenComponent,
     FarmerComponent,
     DealerComponent,
-    RegisterComponent
+    RegisterComponent,
+    SearchPipe,
+    OrderSearchPipe,
+  
   ],
   imports: [
     BrowserModule,
@@ -64,7 +76,8 @@ import { CropService } from './_services/crop.service';
       multi:true
     },
     UserService,
-    CropService
+    CropService,
+    OrderService
   ],
   bootstrap: [AppComponent]
 })
