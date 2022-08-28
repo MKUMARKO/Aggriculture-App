@@ -22,6 +22,27 @@ export class UserAuthService {
     return localStorage.getItem('jwt');
   }
 
+
+  public setId(id:string){
+    localStorage.setItem('id',id)
+  }
+
+  public getId(): string {
+    return localStorage.getItem('id');
+  }
+
+  ///////
+
+  public setName(name:string){
+    localStorage.setItem('name',name)
+  }
+
+  public getName(): string {
+    return localStorage.getItem('name');
+  }
+
+
+
   public clear() {
     localStorage.clear();
   }

@@ -21,44 +21,6 @@ export class UserService {
   ) {}
    
 
-/////////////////////////home start/////////////////////////////////////////////////////////////
-// insert the candidate data
-public addUser(formData){
-
-  const headers = new HttpHeaders({
-    
-    'Content-Type': 'application/json',
-    'Cache-Control': 'no-cache'
-  });
-
-  var body = JSON.stringify({
-
-  "name": formData.get('name').value, 
-  "contactNo": formData.get('contactNo').value,
-  "address": formData.get('address').value,
-  "userName": formData.get('userName').value,
-  "password": formData.get('password').value,
-  "accountNumber": formData.get('accountNumber').value,
-  
-  "role":formData.get('role').value,
-
-  
-   })
-  
-  this.httpclient.post('http://localhost:2001/home/adduser', body, { headers: headers }).subscribe(
-    response => {
-      console.log(response);
-     
-      confirm('do you want to submit the application')
-      alert('recored inserted successfully')
-    },
-    error => {
-      //console.log("haii")
-      alert('userId already exist')
-      console.log(error.getMessage);
-    });
-  
-}
 // login
   public login(loginData) {
     return this.httpclient.post(this.PATH_OF_API + '/home/login', loginData, {
@@ -67,38 +29,20 @@ public addUser(formData){
   }
 
 
-  //////////////////////////admin/////////////////////////////////////
-  public forUser() {
-    return this.httpclient.get(this.PATH_OF_API + '/forUser', {
-      
-    });
-  }
-
-
-  public forAdmin() {
-    return this.httpclient.get(this.PATH_OF_API + '/forAdmin', {
-      responseType: 'text',
-    });
-  }
 
   
   
 // get all users
 
-anny:any
+
   public getAllUser(){
 
-    return this.httpclient.get(this.PATH_OF_API + '/homee/finduser', { 
-         headers:this.requestHeader,});
+    return this.httpclient.get(this.PATH_OF_API + '/admin/finduser', { 
+         responseType:'json'});
   }
   // delete user
   public deleteUser(id: any) {
     return this.httpclient.delete(this.PATH_OF_API + '/admin/deleteuser/' + id ,{
-
-      headers:this.requestHeader,
-      
-     
-      
 
     });
       
@@ -108,7 +52,7 @@ anny:any
   public getUser(userId: any) {
     return this.httpclient.delete(this.PATH_OF_API + '/homee/finduser/' + userId ,{
 
-      headers:this.requestHeader,
+      responseType:'json'
       
     });
       
@@ -167,4 +111,8 @@ anny:any
       }
     }
   }
+
+
+
+  
 }

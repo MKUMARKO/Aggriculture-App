@@ -26,7 +26,12 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
+//////////////////////
+formGroup:any;
+name:any;
+onSubmit(form){
 
+}
   
 
 }

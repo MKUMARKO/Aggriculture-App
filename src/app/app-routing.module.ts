@@ -7,6 +7,7 @@ import { ForbiddenComponent } from './forbidden/forbidden.component';
 import { HomeComponent } from './home/home.component';
 
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { AuthGuard } from './_auth/auth.guard';
 
@@ -16,8 +17,14 @@ const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate:[AuthGuard], data:{roles:['ROLE_ADMIN']} },
   { path: 'farmer', component: FarmerComponent ,  canActivate:[AuthGuard], data:{roles:['ROLE_FARMER']} },
   { path: 'dealer', component: DealerComponent ,  canActivate:[AuthGuard], data:{roles:['ROLE_DEALER']} },
+  
+  { path: 'adminprofile', component: UserComponent , canActivate:[AuthGuard], data:{roles:['ROLE_ADMIN']}},
+  { path: 'farmerprofile', component: UserComponent , canActivate:[AuthGuard], data:{roles:['ROLE_FARMER']}},
+  { path: 'dealerprofile', component: UserComponent , canActivate:[AuthGuard], data:{roles:['ROLE_DEALER']}},
+  
+
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
   { path: 'forbidden', component: ForbiddenComponent }
 ];
 

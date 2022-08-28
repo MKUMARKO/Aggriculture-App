@@ -25,13 +25,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatToolbarModule}from '@angular/material/toolbar';
 
 import { CropService } from './_services/crop.service';
 
 import { OrderService } from './_services/order.service';
 import { SearchPipe } from './_pipes/search.pipe';
-import { HomeComponent } from './home/home.component';
+
 import { OrderSearchPipe } from './_pipes/order-search.pipe';
+
+import { HomeComponent } from './home/home.component';
+import { HomeService } from './_services/home_service/home.service';
+import { FarmerService } from './_services/farmer_service/farmer.service';
 
 
 
@@ -65,7 +70,10 @@ import { OrderSearchPipe } from './_pipes/order-search.pipe';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatToolbarModule,
+
+    
 
   ],
   providers: [
@@ -77,7 +85,9 @@ import { OrderSearchPipe } from './_pipes/order-search.pipe';
     },
     UserService,
     CropService,
-    OrderService
+    OrderService,
+    HomeService,
+    FarmerService
   ],
   bootstrap: [AppComponent]
 })

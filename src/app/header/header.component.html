@@ -17,19 +17,25 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/farmer"
             *ngIf="userService.roleMatch(['ROLE_FARMER'])"
-            >User Dashboard</a>
+            >Farmer Dashboard</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/dealer"
             *ngIf="userService.roleMatch(['ROLE_DEALER'])"
-            >User Dashboard</a>
+            >Dealer Dashboard</a>
           </li>
+
+          
          
         </ul>
+
         <button *ngIf="! isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Login</button>
         <button *ngIf="isLoggedIn()"  type="button" class="btn btn-danger" (click)="logout()" >Logout</button>
-        <button *ngIf=" !isLoggedIn()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"(click)="edit()">Edit</button>
-        <button *ngIf=" !isLoggedIn()" type="button" class="btn btn-danger" (click)="register()" >Register</button>
+
+        <button *ngIf="! isLoggedIn()"  type="button" class="btn btn-danger" (click)="logout()" >Register</button>
+        <button *ngIf="isLoggedIn()"  type="button" class="btn btn-danger" (click)="logout()" >Profile</button>
+        
+       
       </div>
     </div>
   </nav>
@@ -39,6 +45,7 @@
   <!--================================= Update crop =================================================================-->
 
 
-  <mat-form-field>
-    haiiii
-  </mat-form-field>
+ 
+
+
+  
