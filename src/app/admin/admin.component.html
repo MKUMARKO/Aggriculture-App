@@ -4,7 +4,7 @@
     <mat-tab label="User-Management" >
 
        
-
+      
       <div class="container" >
       
       
@@ -66,7 +66,7 @@
               <th scope="col">Crop Name</th>
               <th scope="col">Farmer Id</th>
               <th scope="col">Uploaded By</th>
-              <th scope="col">Address</th>
+              <!-- <th scope="col">Address</th> -->
               <th scope="col">Quantity</th>
 
               <th scope="col">Crop Type</th>
@@ -91,10 +91,10 @@
                 <td>{{crop.cropName}}</td>
                 <td>{{crop.farmerId}}</td>
                 <td>{{crop.uploadedBy}}</td>
-                <td>{{crop.address}}</td>
+                <!-- <td>{{crop.address}}</td> -->
                 <td>{{crop.cropQty}}</td>
                 <td>{{crop.cropType}}</td>
-                <td>{{crop.ImgUrl}}</td>
+                <td>{{crop.cropImgUrl}}</td> 
                 <td>{{crop.cropDesc}}</td>
                 <td>{{crop.cropPrice}}</td>
                
@@ -147,7 +147,7 @@
 
               <th scope="col">Dealer Mobile</th>
               <th scope="col"> Farmer Mobile</th>
-              <th scope="col">Order Status</th>
+              <th scope="col">Cost of the crop</th>
               
               
               <th scope="col">
@@ -173,7 +173,7 @@
                 <td>{{order.cropName}}</td>
                 <td>{{order.dealerMobile}}</td>
                 <td>{{order.farmerMobile}}</td>
-                <td>{{order.orderStatus}}</td>
+                <td>{{order.cost}}</td>
 
                 
                
@@ -188,6 +188,5 @@
       </div>
       
     </mat-tab>
-
 
   </mat-tab-group>

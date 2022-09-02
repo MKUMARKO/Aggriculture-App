@@ -1,51 +1,272 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Crop Deal</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/admin"
-            *ngIf="userService.roleMatch(['ROLE_ADMIN'])"
-            >Admin Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/farmer"
-            *ngIf="userService.roleMatch(['ROLE_FARMER'])"
-            >Farmer Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/dealer"
-            *ngIf="userService.roleMatch(['ROLE_DEALER'])"
-            >Dealer Dashboard</a>
-          </li>
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Crop Deal</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/home"  >Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/admin"
+            *ngIf="userService.roleMatch(['ROLE_ADMIN'])">Admin Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/farmer"
+            *ngIf="userService.roleMatch(['ROLE_FARMER'])">Farmer Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/dealer"
+            *ngIf="userService.roleMatch(['ROLE_DEALER'])">Dealer Dashboard</a>
+        </li>
+       <!--admin profile view -->
+        <li class="nav-item">
+          <a class="nav-link active"  aria-current="page" *ngIf="userService.roleMatch(['ROLE_ADMIN'])" routerLink="/profile"  >My profile</a>
+        </li>
 
-          
-         
-        </ul>
+        <!--farmer profile view -->
 
-        <button *ngIf="! isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Login</button>
-        <button *ngIf="isLoggedIn()"  type="button" class="btn btn-danger" (click)="logout()" >Logout</button>
+        <li class="nav-item">
+          <a class="nav-link active"  aria-current="page" *ngIf="userService.roleMatch(['ROLE_FARMER'])" routerLink="/farmerprofile"  >farmer profile</a>
+        </li>
 
-        <button *ngIf="! isLoggedIn()"  type="button" class="btn btn-danger" (click)="logout()" >Register</button>
-        <button *ngIf="isLoggedIn()"  type="button" class="btn btn-danger" (click)="logout()" >Profile</button>
-        
-       
+        <!--dealer profile-->
+
+        <li class="nav-item">
+          <a class="nav-link active"  aria-current="page" *ngIf="userService.roleMatch(['ROLE_DEALER'])" routerLink="/dealerprofile"  >dealer profile</a>
+        </li>
+
+
+
+
+
+      </ul>
+
+       <button *ngIf="! isLoggedIn()" type="button" class="btn btn-success" routerLink="/login">Login</button> 
+
+      
+
+      <button *ngIf="! isLoggedIn()" data-toggle="modal" data-target="#addUserModal" type="button" class="btn btn"
+        style="background-color: orange;">Register</button>
+
+      <!-- <button *ngIf=" !isLoggedIn()" data-toggle="modal" data-target="#loginModal" type="button"
+        class="btn btn-success">login </button> -->
+
+        <!--demo profile-->
+        <div *ngIf="isLoggedIn()">
+          <span>
+            
+             <span style="color:#191A19;"   data-toggle="modal" data-target="#profileEdit"><a>{{name}}</a>    </span>
+             
+            <button data-toggle="modal" data-target="#profile"><i class="fas fa-user-circle"></i></button>
+            </span>
+          </div>
+
+
+    </div>
+  </div>
+</nav>
+
+
+
+<!--=================================  login =================================================================-->
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="container mt-5" class="loginBod">
+          <div class="card" style="padding: 20px;">
+            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+              <input type="text" ngModel name="userName" id="userName" placeholder="Enter your username"
+                class="form-control mb-3">
+
+              <input type="password" ngModel name="password" id="password" placeholder="Enter your password"
+                class="form-control mb-3">
+
+              <input type="submit" value="Login" class="btn btn-outline-primary form-control rounded-0">
+            </form>
+          </div>
+        </div>
+
       </div>
     </div>
-  </nav>
+  </div>
+</div>
+<!----------------------------log in ends ------------------------------------------>
 
 
 
-  <!--================================= Update crop =================================================================-->
+<!-----------------------add user (registration)----------------------->
 
 
- 
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">User Registration</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="container mt-5" class="loginBod">
+          <div class="card" style="padding: 20px;">
+
+            <div class="container mt-5" class="loginBod">
+              <div class="card" style="padding: 20px;">
 
 
-  
+                <form [formGroup]="userForm" (ngSubmit)="submit()">
+
+
+                  <!--name-->
+                  <div class="form-group inputBox">
+
+                    <label>Name:</label>
+                    <input formControlName="name" id="name" type="text" class="form-control" required>
+
+                    <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                      <div *ngIf="f.name.errors.required" style="color: red;">ContactNo is required.</div>
+                    </div>
+                  </div>
+
+
+                  <!--contactNo-->
+                  <div class="form-group inputBox">
+
+                    <label>Contact No:</label>
+                    <input formControlName="contactNo" id="contactNo" type="text" class="form-control" required>
+
+                    <div *ngIf="f.contactNo.touched && f.contactNo.invalid" class="alert alert-danger">
+                      <div *ngIf="f.contactNo.errors.required" style="color: red;">ContactNo is required.</div>
+                    </div>
+
+                  </div>
+
+                  <!--address-->
+                  <div class="form-group inputBox">
+
+                    <label>Adderss:</label>
+                    <input formControlName="address" id="address" type="text" class="form-control" required>
+
+                    <div *ngIf="f.address.touched && f.address.invalid" class="alert alert-danger">
+                      <div *ngIf="f.address.errors.required" style="color: red;">address is required.</div>
+                    </div>
+
+                  </div>
+
+                  <!--userName-->
+                  <div class="form-group inputBox">
+
+                    <label>User Name:</label>
+                    <input formControlName="userName" id="userName" type="text" class="form-control" required>
+
+                    <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+                      <div *ngIf="f.userName.errors.required" style="color: red;">userName is required.</div>
+                    </div>
+
+                  </div>
+
+
+
+                  <!--password-->
+                  <div class="form-group inputBox">
+
+                    <label>Password:</label>
+                    <input formControlName="password" id="password" type="text" class="form-control" required>
+
+                    <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+                      <div *ngIf="f.userName.errors.required" style="color: red;">userName is required.</div>
+                    </div>
+
+                  </div>
+
+
+
+                  <!-- accountNumber-->
+                  <div class="form-group inputBox">
+
+                    <label>Account Number:</label>
+                    <input formControlName="accountNumber" id="accountNumber" type="text" class="form-control" required>
+
+                    <div *ngIf="f.accountNumber.touched && f.accountNumber.invalid" class="alert alert-danger">
+                      <div *ngIf="f.accountNumber.errors.required" style="color: red;">account number is required.</div>
+                    </div>
+
+                  </div>
+
+                  <!--role -->
+                  <div class="form-group inputBox">
+                    <label for="user" class="label">Who are you:</label>&nbsp;&nbsp;
+                    <select formControlName="role" name="role" class="input" id="role" class="form-control" required>
+                      <option value="Farmer" selected style="color: black;">Farmer</option>
+                      <option value="Dealer" style="color: black;">Dealer</option>
+                    </select>
+
+                    <div *ngIf="f.role.touched && f.role.invalid" class="alert alert-danger">
+                      <div *ngIf="f.role.errors.required" style="color: red;">role is required.</div>
+                    </div>
+
+                  </div>
+
+
+
+                  <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Submit</button>
+                  <button class="btn btn-secondary" type="reset">Reset</button>
+
+
+
+                </form>
+
+
+              </div>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------------------------add user ends ------------------------------------>
+
+<!-------------------------profile demo----------------------------------------------------------->
+<div class="modal fade" id="profile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">My Profile</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card p-4">
+          <div class=" image d-flex flex-column justify-content-center align-items-center"> <button class="btn btn-secondary"> <img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100" /></button> <span class="name mt-3"><a class="nav-link active" aria-current="page" >{{userName}}</a></span>
+              <div class="d-flex flex-row justify-content-center align-items-center gap-2"> <span class="idd1">Mobile No:{{contactNo}}</span></div>
+              <div class="d-flex flex-row justify-content-center align-items-center mt-3"> <span class="number"> Name: {{name}}</span> </div>
+
+             
+              <button *ngIf="isLoggedIn()" type="button" class="btn btn-danger" (click)="refresh()" (click)="logout()">Logout</button>
+
+              
+          </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+

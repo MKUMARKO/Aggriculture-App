@@ -58,19 +58,4 @@ export class UserComponent implements OnInit {
 
     
   }
-
-/*
-  getStudentsDetails() {
-    this.studentService.getStudents().subscribe(
-      (resp) => {
-        console.log(resp);
-        this.studentDetails = resp;
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-  */
-
 }

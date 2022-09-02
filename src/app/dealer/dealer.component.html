@@ -1,6 +1,419 @@
-<div class="container mt-5">
-    <div class="card text-center" style="padding: 20px; color: red;">
-        <h1>You are dealer</h1>
-        
+<div class="modal fade" id="buyCrop" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Login Form</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="container mt-5" class="loginBod">
+                    <div class="card" style="padding: 20px;">
+
+                        <!-- <form [formGroup]="userForm" (ngSubmit)="submit()"> -->
+                        <form [formGroup]="orderForm" (ngSubmit)="buyCrop()">
+
+
+                            <!--dealerId -->
+                            <div class="form-group">
+                                <input type="hidden" disabled="true" formControlName="dealerId" [(ngModel)]="id"
+                                    name="dealerId" id="dealerId" class="form-control">
+                            </div>
+
+                            <!--farmerId -->
+                            <div class="form-group">
+                                <label for="farmerId">Farmer Id:</label>
+                                <input type="text" disabled="true" formControlName="farmerId"
+                                    [(ngModel)]="cropToBuy.farmerId" name="farmerId" id="farmerId" class="form-control">
+                            </div>
+
+                            <!--cropId -->
+                            <div class="form-group">
+                                <label for="cropId">Crop Id:</label>
+                                <input type="text" disabled="true" formControlName="cropId" [(ngModel)]="cropToBuy.id"
+                                    name="cropId" id="cropId" class="form-control">
+                            </div>
+
+                            <!--dealerName -->
+                            <div class="form-group">
+                                <label for="dealerName">Dealer Name:</label>
+                                <input type="text" disabled="true" formControlName="dealerName" [(ngModel)]="name"
+                                    name="dealerName" id="dealerName" class="form-control">
+                            </div>
+
+                            <!--FarmerName -->
+                            <div class="form-group">
+                                <label for="farmerName">Farmer Name:</label>
+                                <input type="text" disabled="true" formControlName="farmerName"
+                                    [(ngModel)]="cropToBuy.uploadedBy" name="farmerName" id="farmerName"
+                                    class="form-control">
+                            </div>
+
+                            <!--cropName -->
+                            <div class="form-group">
+                                <label for="cropName">Name of the crop:</label>
+                                <input type="text" disabled="true" formControlName="cropName"
+                                    [(ngModel)]="cropToBuy.cropName" name="cropName" id="cropName" class="form-control">
+                            </div>
+
+                            <!--dealerMobile -->
+                            <div class="form-group">
+                                <label for="dealerMobile">Dealer Mobile number:</label>
+                                <input type="text" disabled="true" formControlName="dealerMobile"
+                                    [(ngModel)]="contactNo" name="dealerMobile" id="dealerMobile" class="form-control">
+                            </div>
+
+                            <!--farmerMobile -->
+                            <div class="form-group">
+                                <label for="farmerMobile">Farmer Mobile number:</label>
+                                <input type="text" disabled="true" formControlName="farmerMobile"
+                                    [(ngModel)]="cropToBuy.cropDesc" name="farmerMobile" id="farmerMobile"
+                                    class="form-control">
+                            </div>
+
+                            <!--cost -->
+                            <div class="form-group">
+                                <label for="cost"> Negotiable price:</label>
+                                <input type="text" formControlName="cost" name="cost" id="cost" class="form-control">
+                            </div>
+
+
+
+
+
+                            <div class="col-12">
+                                <div class="d-flex flex-column">
+                                    <p class="text mb-1">Card Number</p> <input class="form-control mb-3" type="text"
+                                        placeholder="1234 5678 435678">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex flex-column">
+                                    <p class="text mb-1">Expiry</p> <input class="form-control mb-3" type="text"
+                                        placeholder="MM/YYYY">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-flex flex-column">
+                                    <p class="text mb-1">CVV/CVC</p> <input class="form-control mb-3 pt-2 "
+                                        type="password" placeholder="***">
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <input (click)="refresh()" type="submit" value=" Order" class="btn btn-primary w-100">
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
+
+<div class="container marketing" #Cards>
+
+    <mat-tab-group class="scroll">
+        <mat-tab label="All Crops">
+            <input type="text" class="form-control" placeholder="Enter Keyword for filter result"
+                [(ngModel)]="searchedKeyword" style="width: 23rem;">
+            <div style="align-content: center;">
+                <div class="row">
+                    <div *ngFor="let crop of cropList | cropsearch:searchedKeyword" class="col-lg-auto">
+                        <div class="card p-3 bg-white" style="width: 20rem;"><i class="fa fa-apple"></i>
+                            <div class="about-product text-center mt-2"><img src="{{crop.cropImgUrl}}" width="220"
+                                    height="200">
+                                <div>
+                                    <h4>{{crop.cropName}}</h4>
+                                    
+                                    <p>{{crop.address}}</p>
+                                </div>
+                            </div>
+                            <div class="stats mt-2">
+
+                                <div class="d-flex justify-content-between p-price"><span>Crop Id:</span><span>
+                                        {{crop.id}}</span></div>
+                                
+                                        <div class="d-flex justify-content-between p-price font-weight-bold"><span> Farmer 
+                                            Number :</span><span>{{crop.cropDesc}}</span></div>
+                               
+                                <div class="d-flex justify-content-between p-price font-weight-bold"><span>Crop
+                                        quantity:</span><span>{{crop.cropQty}} Kg</span></div>
+                                <div class="d-flex justify-content-between p-price font-weight-bold"><span>Crop
+                                        Type:</span><span>{{crop.cropType}}</span></div>
+
+                            </div>
+                            <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>Negotiable
+                                    price:</span><span>₹ {{crop.cropPrice}}/Kg</span></div>
+                            <!-- <button mat-raised-button  data-toggle="modal" data-target="#payment" >More-details</button>      -->
+
+                            <p>{{crop.address}}</p>
+
+                            <center> <button data-toggle="modal" style="width: 80px; " data-target="#buyCrop"
+                                    type="button" class="btn btn-success"  (click)="buy1(crop)">Buy </button>
+
+                                </center>
+                        </div>
+                        <br>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-tab>
+
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!--------------------------order--------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+
+        <mat-tab label="My Orders">
+            <div class="subscribedCrops">
+                <!-- another card -->
+                <div class="row" id="ads">
+                    <!-- Category Card -->
+                    <div *ngFor="let order of myOrders" style="padding: 1.2rem;" class="col-lg-auto">
+                        <div class="card p-3 bg-white shadow mb-5 rounded" style="width: 20rem;"><i
+                                class="fa fa-apple"></i>
+                            <div class="text-center mt-2">
+                                <div>
+                                    <div class="font-weight-bold mt-4"><span>Order details</span></div>
+                                    <h4>crop : {{order.cropName}}</h4>
+                                    <p>cropId: {{order.cropId}}</p>
+                                </div>
+                            </div>
+                            <div class="stats mt-2">
+
+                                <div class="d-flex justify-content-between p-price"><span>Dealer
+                                    Name:</span><span>{{order.dealerName}}</span></div>
+                               
+                                <div class="d-flex justify-content-between p-price"><span>Farmer
+                                        Name:</span><span>{{order.farmerName}}</span></div>
+
+                                <div class="d-flex justify-content-between p-price"><span>Farmer
+                                        contact</span><span>{{order.farmerMobile}}</span></div>
+
+                                        <div class="d-flex justify-content-between p-price"><span>cost of the crop
+                                            </span><span>₹ {{order.cost}}</span></div>
+
+                            </div>
+                            <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>OrderID:
+                                </span><span>{{order.orderId}}</span></div>
+
+
+                            <button type="button" mat-raised-button color="warn" (click)="refresh()" (click)=deleteOrder(order)>
+                                Delete</button>
+                            <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#print"
+                                (click)=getPrice(order)>View Payment Details</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            
+        </mat-tab>
+
+
+
+
+
+    </mat-tab-group>
+
+
+
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!--------------------------payment details----------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+
+
+
+
+    <div class="modal fade" id="print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body" id="receipt" #receipt>
+
+
+
+
+
+
+
+                    <div bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 100%;" height="100%" width="100%">
+                        <table bgcolor="#f6f6f6" cellspacing="0"
+                            style="border-collapse: collapse; padding: 40px; width: 100%;" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="5px" style="padding: 0;"></td>
+                                    <td
+                                        style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
+                                        <table width="100%" cellspacing="0" style="border-collapse: collapse;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 0;">
+                                                        <a href="#" style="color: #348eda;" target="_blank">
+                                                            <img src="https://image.shutterstock.com/image-photo/green-ripening-soybean-field-agricultural-260nw-759949660.jpg"
+                                                                alt="Agriculture.com"
+                                                                style="height: 50px; max-width: 100%; width: 157px;"
+                                                                height="190" width="100" />
+                                                        </a>
+                                                    </td>
+                                                    <td style="color: rgb(79, 112, 246); font-size: 12px; padding: 0; text-align: right;"
+                                                        align="right">
+                                                        Agriculture crop deal<br />
+                                                        Invoice : {{myOrder.orderId}}<br />
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="5px" style="padding: 0;"></td>
+                                </tr>
+
+                                <tr>
+                                    <td width="5px" style="padding: 0;"></td>
+                                    <td bgcolor="#FFFFFF"
+                                        style="border: 1px solid #000; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+                                        <table width="100%"
+                                            style="background: #f9f9f9; border-bottom: 1px solid #eee; border-collapse: collapse; color: #999;">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="50%" style="padding: 20px;"><strong
+                                                            style="color: #333; font-size: 24px;">₹ {{myOrder.cost}}
+                                                        </strong> Paid</td>
+                                                    <td align="right" width="50%" style="padding: 20px;">Thanks for
+                                                        using <br><span class="il">Crop-deal.com</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td style="padding: 0;"></td>
+                                    <td width="5px" style="padding: 0;"></td>
+                                </tr>
+                                <tr>
+                                    <td width="5px" style="padding: 0;"></td>
+                                    <td
+                                        style="border: 1px solid #000; border-top: 0; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+                                        <table cellspacing="0"
+                                            style="border-collapse: collapse; border-left: 1px solid #000; margin: 0 auto; max-width: 600px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top" style="padding: 20px;">
+                                                        <h3 style="
+                                                        border-bottom: 1px solid #000;
+                                                        color: #000;
+                                                        font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+                                                        font-size: 18px;
+                                                        font-weight: bold;
+                                                        line-height: 1.2;
+                                                        margin: 0;
+                                                        margin-bottom: 15px;
+                                                        padding-bottom: 5px;
+                                                    ">
+                                                            Summary
+                                                        </h3>
+                                                        <table cellspacing="0"
+                                                            style="border-collapse: collapse; margin-bottom: 40px;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="padding: 5px 0;">Dealer Name</td>
+                                                                    <td align="right" style="padding: 5px 0;">{{name}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding: 5px 0;">Farmer name</td>
+                                                                    <td align="right" style="padding: 5px 0;">
+                                                                        {{myOrder.farmerName}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding: 5px 0;">Prorated amount due</td>
+                                                                    <td align="right" style="padding: 5px 0;">₹
+                                                                        {{myOrder.cost}} </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">
+                                                                        Amount paid</td>
+                                                                    <td align="right"
+                                                                        style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">
+                                                                        ₹ {{myOrder.cost}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="5px" style="padding: 0;"></td>
+                                </tr>
+
+                                <tr style="color: #666; font-size: 12px;">
+                                    <td width="5px" style="padding: 10px 0;"></td>
+                                    <td
+                                        style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
+                                        <table width="100%" cellspacing="0" style="border-collapse: collapse;">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="40%" valign="top" style="padding: 10px 0;">
+                                                        <h4 style="margin: 0;">Questions?</h4>
+                                                        <p
+                                                            style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
+                                                            Please visit our
+                                                            <a href="#" style="color: #666;" target="_blank">
+                                                                Support Center
+                                                            </a>
+                                                            with any questions.
+
+                                                        </p>
+                                                    </td>
+                                                    <td width="10%" style="padding: 10px 0;">&nbsp;</td>
+                                                    <td width="40%" valign="top" style="padding: 10px 0;">
+                                                        <h4 style="margin: 0;"><span class="il">CropDeal</span></h4>
+                                                        <p
+                                                            style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
+                                                            <a href="#">Warangal dharmasagr telangana</a>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="5px" style="padding: 10px 0;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="getPDF()">print receipt</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

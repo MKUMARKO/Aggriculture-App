@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { CropService } from '../_services/crop.service';
 import { OrderService } from '../_services/order.service';
+import { UserAuthService } from '../_services/user-auth.service';
 
 @Component({
   selector: 'app-admin',
@@ -15,22 +16,33 @@ import { OrderService } from '../_services/order.service';
 })
 export class AdminComponent implements OnInit {
 
+ //refresh
 
+ refresh(){
+  window.location.reload();
   
+  }
+
+
+  userName : string=this.userAuthService.getName();
   
   constructor( private userService: UserService,
                private httpClient: HttpClient , 
                private cropService : CropService,
-               private orderService : OrderService
+               private orderService : OrderService,
+               private userAuthService: UserAuthService
                ) { 
                               this.getUserDetails();
                               this.getAllCrop();
                               this.getAllOrder();
+                              
   }
 
   ngOnInit(): void {
 
    // this.refresh();
+
+   
 
     
   }
@@ -147,10 +159,10 @@ getAllOrder() {
 }
 
 
-//delete crop
+//delete order
 
 deleteOrder(order:any) {
-  this.orderService.deleteOrder(order.id).subscribe(
+  this.orderService.deleteOrder(order.orderId).subscribe(
     (resp) => {
       console.log(resp);
     },
@@ -163,21 +175,5 @@ deleteOrder(order:any) {
 
  
 }
-
-
-
-
-
-
-
-
-
-
-refresh(){
-window.location.reload();
-
-}
-
-
 
 }

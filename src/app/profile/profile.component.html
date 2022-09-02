@@ -1,0 +1,174 @@
+<div class="container">
+    <div class="main-body">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
+                                class="rounded-circle p-1 bg-primary" width="110">
+                            <div class="mt-3">
+                                <h4>{{name}}</h4>
+                                <p class="text-secondary mb-1">{{role}}</p>
+                                <p class="text-muted font-size-sm">user Id : {{id}}</p>
+                                 
+                                 <button mat-raised-button color="warn" (click)="refresh()" (click)=deleteUser() (click)="logout()"  > Delete Account</button>
+                               <!-- <button class="btn btn-outline-primary">Message</button> -->
+                            </div>
+                        </div>
+                        <hr class="my-4">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-3">
+
+
+
+                            <form [formGroup]="userForm" (ngSubmit)="updateUser()">
+
+
+
+
+                                 <!--id -->
+                                 <div class="form-group inputBox">
+
+                                    
+                                    
+                                    <input formControlName="id" id="id" type="hidden" [(ngModel)]="id" class="form-control" >
+
+                                    <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.name.errors.required" style="color: red;">ContactNo is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <!--userName-->
+                                 <div class="form-group inputBox">
+
+                                    <label>User Name:</label>
+                                    <input formControlName="userName" disabled="true" id="userName" type="text" [(ngModel)]="userName" class="form-control"
+                                        required>
+
+                                    <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.userName.errors.required" style="color: red;">userName is
+                                            required.</div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <!--name-->
+                                <div class="form-group inputBox">
+
+                                    <label>Name:</label>
+                                    
+                                    <input formControlName="name" id="name" type="text" [(ngModel)]="name" class="form-control" required>
+
+                                    <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.name.errors.required" style="color: red;">ContactNo is required.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!--contactNo-->
+                                <div class="form-group inputBox">
+
+                                    <label>Contact No:</label>
+                                    <input formControlName="contactNo" id="contactNo" type="text" [(ngModel)]="contactNo" class="form-control"
+                                        required>
+
+                                    <div *ngIf="f.contactNo.touched && f.contactNo.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.contactNo.errors.required" style="color: red;">ContactNo is
+                                            required.</div>
+                                    </div>
+
+                                </div>
+
+                                <!--address-->
+                                <div class="form-group inputBox">
+
+                                    <label>Adderss:</label>
+                                    <input formControlName="address" id="address" type="text" [(ngModel)]="address" class="form-control"
+                                        required>
+
+                                    <div *ngIf="f.address.touched && f.address.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.address.errors.required" style="color: red;">address is required.
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                               
+
+
+
+                                <!--password-->
+                                <div class="form-group inputBox">
+
+                                    <label>Password:</label>
+                                    <input formControlName="password" placeholder="******" id="password" type="text" class="form-control"
+                                        required>
+
+                                    <div *ngIf="f.userName.touched && f.userName.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.userName.errors.required" style="color: red;">userName is
+                                            required.</div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- accountNumber-->
+                                <div class="form-group inputBox">
+
+                                    <label>Account Number:</label>
+                                    <input formControlName="accountNumber" id="accountNumber" [(ngModel)]="accountNumber" type="text"
+                                        class="form-control" required>
+
+                                    <div *ngIf="f.accountNumber.touched && f.accountNumber.invalid"
+                                        class="alert alert-danger">
+                                        <div *ngIf="f.accountNumber.errors.required" style="color: red;">account number
+                                            is required.</div>
+                                    </div>
+
+                                </div>
+
+                                <!--role -->
+                                <div class="form-group inputBox">
+                                  
+                                    <input formControlName="role" type="hidden" id="user" [(ngModel)]="role" 
+                                    class="form-control" required>
+
+
+                                    <div *ngIf="f.role.touched && f.role.invalid" class="alert alert-danger">
+                                        <div *ngIf="f.role.errors.required" style="color: red;">role is required.</div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <button class="btn btn-primary" type="submit"
+                                    [disabled]="!userForm.valid">Submit</button>
+                                <button class="btn btn-secondary" type="reset">Reset</button>
+
+
+
+                            </form>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+

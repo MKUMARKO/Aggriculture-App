@@ -29,10 +29,7 @@ export class OrderService {
   }
  // delete oder
   public deleteOrder(id: any) {
-    return this.httpclient.delete(this.PATH_OF_API + '/homee/deleteOrder/' + id ,{
-
-      headers:this.requestHeader,
-      
+    return this.httpclient.delete(this.PATH_OF_API + '/admin/deleteOrder/' + id ,{ 
     });
       
   }

@@ -9,6 +9,13 @@ import { UserAuthService } from './user-auth.service';
 export class UserService {
   PATH_OF_API = 'http://localhost:2001';
 
+   headers = new HttpHeaders({
+    
+    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache'
+  });
+
+
   requestHeader = new HttpHeaders({ 
                                      'No-Auth': 'True',
                                      //'Content-Type': 'application/json',
@@ -58,42 +65,20 @@ export class UserService {
       
   }
 
+  // update user
+
+  
+public updateUser(userForm: any) {
+  return this.httpclient.put(this.PATH_OF_API + '/admin/updateuser', userForm ,{
+
+    headers: this.headers,
+    
+  });
+}
+
   
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// role match code
   public roleMatch(allowedRoles): boolean {
     let isMatch = false;
     const userRoles: any = this.userAuthService.getRoles();

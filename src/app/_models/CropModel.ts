@@ -1,4 +1,4 @@
-export class CropModel{
+/*export class CropModel{
 
     constructor(
         public id:String,
@@ -37,5 +37,28 @@ export class CropModel{
        
         this.farmerId=farmerId;
         this.uploadedBy=uploadedBy;
+    }
+}
+*/
+export class CropModel{
+
+    constructor(
+        public farmerId:String,
+        public id:String,
+        public cropName:String,
+        public cropQty:String,
+        public cropType:String,
+        public cropPrice:String,
+        public cropImgUrl:String,
+        public cropDesc:String,
+        
+    )
+        {
+        this.farmerId=farmerId;
+        this.id=id;
+        this.cropName=cropName;
+        this.cropQty=cropQty;
+        this.cropType=cropType;
+        this.cropPrice=cropPrice;
     }
 }

@@ -10,9 +10,9 @@ export class HomeService {
 
   requestHeader = new HttpHeaders({ 
                                      'No-Auth': 'True',
-                                     //'Content-Type': 'application/json',
-                                      //'Cache-Control': 'no-cache'
-                                      //'Authorization':`Bearer ${this.userAuthService.getToken()}`
+                                     'Content-Type': 'application/json',
+                                      'Cache-Control': 'no-cache'
+                                      
                                      });
   constructor(
     private httpclient: HttpClient,
@@ -44,7 +44,7 @@ public addUser(formData){
   
    })
   
-  this.httpclient.post('http://localhost:2001/home/adduser', body, { headers: headers }).subscribe(
+  this.httpclient.post('http://localhost:2001/home/adduser', body, { headers:this.requestHeader,}).subscribe(
     response => {
       console.log(response);
      
@@ -53,6 +53,7 @@ public addUser(formData){
     },
     error => {
       //console.log("haii")
+      console.log(error)
       alert('userId already exist')
       console.log(error.getMessage);
     });

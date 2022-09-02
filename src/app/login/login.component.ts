@@ -24,19 +24,24 @@ export class LoginComponent implements OnInit {
         //this.userAuthService.setRoles(response.user.role);
         this.userAuthService.setRoles(response.userDetails.authorities);
 
-        console.log(response.userDetails.id)
+        console.log(response.userDetails.contactNo);
 
         //this.userAuthService.setToken(response.jwtToken);
         this.userAuthService.setToken(response.jwt);
 
         this.userAuthService.setId(response.userDetails.id)
 
-        this.userAuthService.setName(response.userDetails.name)
-        /*
-        
-        id
+        this.userAuthService.setUserName(response.userDetails.username)
 
-        */
+        this.userAuthService.setAccountNumber(response.userDetails.accountNumber)
+
+        this.userAuthService.setAddress(response.userDetails.address)
+
+        this.userAuthService.setContactNo(response.userDetails.contactNo)
+
+        this.userAuthService.setName(response.userDetails.name)
+    
+        this.userAuthService.setRole(response.userDetails.role)
 
 
         const authorities = response.userDetails.authorities[0].authority;
@@ -52,7 +57,9 @@ export class LoginComponent implements OnInit {
         }
       },
       (error) => {
-        console.log(error);
+       // console.log(error);
+        alert(error.message);
+        console.log(error.getMessage);
       }
     );
   }

@@ -27,6 +27,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule}from '@angular/material/toolbar';
 
+
 import { CropService } from './_services/crop.service';
 
 import { OrderService } from './_services/order.service';
@@ -37,6 +38,12 @@ import { OrderSearchPipe } from './_pipes/order-search.pipe';
 import { HomeComponent } from './home/home.component';
 import { HomeService } from './_services/home_service/home.service';
 import { FarmerService } from './_services/farmer_service/farmer.service';
+import { CropPipe } from './_pipes/crop.pipe';
+import { DealerService } from './_services/dealer_service/dealer.service';
+import { ProfileComponent } from './profile/profile.component';
+import { FarmerProfileComponent } from './farmer-profile/farmer-profile.component';
+import { DealerProfileComponent } from './dealer-profile/dealer-profile.component';
+import { UserAuthService } from './_services/user-auth.service';
 
 
 
@@ -53,8 +60,13 @@ import { FarmerService } from './_services/farmer_service/farmer.service';
     FarmerComponent,
     DealerComponent,
     RegisterComponent,
+    //pipe
     SearchPipe,
     OrderSearchPipe,
+    CropPipe,
+    ProfileComponent,
+    FarmerProfileComponent,
+    DealerProfileComponent,
   
   ],
   imports: [
@@ -72,6 +84,7 @@ import { FarmerService } from './_services/farmer_service/farmer.service';
     MatIconModule,
     MatFormFieldModule,
     MatToolbarModule,
+    
 
     
 
@@ -84,10 +97,12 @@ import { FarmerService } from './_services/farmer_service/farmer.service';
       multi:true
     },
     UserService,
+    UserAuthService,
     CropService,
     OrderService,
     HomeService,
-    FarmerService
+    FarmerService,
+    DealerService
   ],
   bootstrap: [AppComponent]
 })

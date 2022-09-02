@@ -1,87 +1,625 @@
+<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
 
-<mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" >
-    
-            <mat-tab label="View Profile" >
-                <button class="btn float-right login_btn"  type="button" data-toggle="modal" data-target="#adduserModal">Sign-Up</button>
-           </mat-tab>
-        <mat-tab label="Edit Profile" >Edit profile</mat-tab>
+  <mat-tab label="crop">
 
+     <br>
+    <div class="heading d-flex justify-content-between">
+     <!---- <input type="text" class="searchBar" placeholder="Search"
+                       style="width: 23rem;margin-left: 150px;">  -->
 
-       
-            <mat-tab label="crop">
-                <div class="container" >
-                    <table datatable class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Sl.No</th>
-                          <th scope="col">Crop id</th>
-                          <th scope="col">Crop Name</th>
-                          <th scope="col">Farmer Id</th>
-                          <th scope="col">Uploaded By</th>
-                          <th scope="col">Address</th>
-                          <th scope="col">Quantity</th>
+    <input class="form-control" name="cropsearch"  style="width: 160px; ;margin-left: 400px;" matInput [(ngModel)]="cropsearch"  autocomplete="off" placeholder="Search" >               
+                       
+       <button style="margin-right: 700px;" mat-raised-button type="button" data-toggle="modal"
+        data-target="#addCropModal"> Add Crop</button>
+    </div>
+    <br> 
+    <div class="container">
+      <table datatable class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sl.No</th>
+            <th scope="col">Crop id</th>
             
-                          <th scope="col">Crop Type</th>
-                          <th scope="col"> Crop url</th>
-                          <th scope="col">Crop Description</th>
-                          <th scope="col">Crop Price</th>
-                          
-                          <th scope="col">
-                            
-                              <input class="form-control" name="search"  style="width: 160px;" matInput [(ngModel)]="search"  autocomplete="off" placeholder="Search" >
-                            
-                          </th>
-                          
-                          
-                          
-                        </tr>
-                      </thead>
-                      <tbody>                              <!--search pipes-->
-                        <tr *ngFor="let crop of cropList | filterSearch: search ;let i = index" >
-                          <th scope="row">{{i+1}}</th>
-                            <td>{{crop.id}}</td> 
-                            <td>{{crop.cropName}}</td>
-                            <td>{{crop.farmerId}}</td>
-                            <td>{{crop.uploadedBy}}</td>
-                            <td>{{crop.address}}</td>
-                            <td>{{crop.cropQty}}</td>
-                            <td>{{crop.cropType}}</td>
-                            <td>{{crop.ImgUrl}}</td>
-                            <td>{{crop.cropDesc}}</td>
-                            <td>{{crop.cropPrice}}</td>
-                           
-                            
-                          <td>
-                            <button mat-raised-button color="warn" (click)="refresh()" (click)=deleteCrop(crop)   > Delete</button>
-                            
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-            </mat-tab>
+            <!-- <th scope="col">Farmer Id</th> -->
+            <th scope="col">Crop Name</th>
+            <!-- <th scope="col">Uploaded By</th> -->
+            <!-- <th scope="col">Address</th> -->
+            <th scope="col">Quantity</th>
 
-            
+            <th scope="col">Crop Type</th>
+            <!-- <th scope="col"> Crop url</th> -->
+            <!-- <th scope="col">Farmer mobile</th> -->
+            <th scope="col">Crop Price</th>
+
+            <th scope="col">
+              <pre>                                           </pre>
+
+              <!-- <input class="form-control" name="cropsearch"  style="width: 160px;" matInput [(ngModel)]="cropsearch"  autocomplete="off" placeholder="Search" > -->
+            </th>
+
+
+
+          </tr>
+        </thead>
+        <tbody>
+                                       <!--search pipes-->
+          <tr *ngFor="let crop of cropList | cropsearch: cropsearch ;let i = index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{crop.id}}</td>
            
-        
-        
+            <!-- <td>{{crop.farmerId}}</td> -->
+            <td>{{crop.cropName}}</td>
+            <!-- <td>{{crop.uploadedBy}}</td> -->
+            <!-- <td>{{crop.address}}</td> -->
+            <td>{{crop.cropQty}}</td>
+            <td>{{crop.cropType}}</td>
+            <!-- <td>{{crop.cropImgUrl}}</td> -->
+            <!-- <td>{{crop.cropDesc}}</td> -->
+            <td>{{crop.cropPrice}}</td>
 
-</mat-tab-group>    
+
+            <td>
+              <button mat-raised-button style="background-color: #82c4ef;" type="button" data-toggle="modal" (click)="edit(crop)" data-target="#updateCropModal"> view </button>
+              <button mat-raised-button  style="background-color: #f17d69;"  (click)="refresh()" (click)=deleteCrop(crop)> Delete</button>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-tab>
+   
+
+  <!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------>
+<!---------------------------------------order management------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------>
+
+<mat-tab label="My Orders">
+  <div class="subscribedCrops">
+      <!-- another card -->
+      <div class="row" id="ads">
+          <!-- Category Card -->
+          <div *ngFor="let order of myOrders" style="padding: 1.2rem;" class="col-lg-auto">
+              <div class="card p-3 bg-white shadow mb-5 rounded" style="width: 20rem;"><i
+                      class="fa fa-apple"></i>
+                  <div class="text-center mt-2">
+                      <div>
+                          <div class="font-weight-bold mt-4"><span>Order details</span></div>
+                          <h4>crop : {{order.cropName}}</h4>
+                          <p>cropId: {{order.cropId}}</p>
+                      </div>
+                  </div>
+                  <div class="stats mt-2">
+
+                      <div class="d-flex justify-content-between p-price"><span>Dealer
+                          Name:</span><span>{{order.dealerName}}</span></div>
+                     
+                      <div class="d-flex justify-content-between p-price"><span>Farmer
+                              Name:</span><span>{{order.farmerName}}</span></div>
+
+                      <div class="d-flex justify-content-between p-price"><span>Farmer
+                              contact</span><span>{{order.farmerMobile}}</span></div>
+
+                              <div class="d-flex justify-content-between p-price"><span>cost of the crop
+                                  </span><span>₹ {{order.cost}}</span></div>
+
+                  </div>
+                  <div class="d-flex justify-content-between total font-weight-bold mt-4"><span>OrderID:
+                      </span><span>{{order.orderId}}</span></div>
+
+
+                  <button type="button" mat-raised-button color="warn" (click)="refresh()" (click)=deleteOrder(order)>
+                      Delete</button>
+                  <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#print"
+                      (click)=getPrice(order)>View Payment Details</button>
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+  
+</mat-tab>
+
+
+</mat-tab-group>
 
 
 
-<div class="modal fade" id="adduserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">SignUp Form</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            
-          hello uday
-            
-        </div>
+
+
+
+
+
+<!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------>
+<!---------------------------------------add crop ------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------>
+
+
+<div class="modal hide fade" id="addCropModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Crop </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <form [formGroup]="cropForm" (ngSubmit)="submitCrop()">
+
+         
+          <!--farmerId-->
+          <div class="form-group inputBox">
+
+            <label>Farmer Id:</label>
+            <input formControlName="farmerId" id="farmerId" type="text" class="form-control" disabled="true" [(ngModel)]="userId"  required>
+
+            <div *ngIf="f.farmerId.touched && f.farmerId.invalid" class="alert alert-danger">
+              <div *ngIf="f.farmerId.errors.required" style="color: red;">farmer id is required.</div>
+            </div>
+          </div>
+
+
+
+          <!--uploadedBy-->
+          <div class="form-group inputBox">
+
+            <label>Farmer name:</label>
+            <input formControlName="uploadedBy" id="uploadedBy" type="text" class="form-control" disabled="true"  [(ngModel)]="name" required>
+
+            <div *ngIf="f.uploadedBy.touched && f.uploadedBy.invalid" class="alert alert-danger">
+              <div *ngIf="f.uploadedBy.errors.required" style="color: red;"> name is required.</div>
+            </div>
+          </div>
+
+
+          <!--cropName-->
+          <div class="form-group inputBox">
+
+            <label>Crop name:</label>
+            <input formControlName="cropName" id="cropName" type="text" class="form-control" required>
+
+            <div *ngIf="f.cropName.touched && f.cropName.invalid" class="alert alert-danger">
+              <div *ngIf="f.cropName.errors.required" style="color: red;">crop name is required.</div>
+            </div>
+          </div>
+
+          <!--address-->
+          <div class="form-group inputBox">
+
+            <label>Adderss:</label>
+            <input formControlName="address" id="address" type="text" class="form-control" required>
+
+            <div *ngIf="f.address.touched && f.address.invalid" class="alert alert-danger">
+              <div *ngIf="f.address.errors.required" style="color: red;">address is required.</div>
+            </div>
+
+          </div>
+         
+           <!--cropQty-->
+           <div class="form-group inputBox">
+
+            <label>Crop Quantity:</label>
+            <input formControlName="cropQty" id="cropQty" type="text" class="form-control" required>
+
+            <div *ngIf="f.cropQty.touched && f.cropQty.invalid" class="alert alert-danger">
+              <div *ngIf="f.cropQty.errors.required" style="color: red;">crop Qty is required.</div>
+            </div>
+
+          </div>
+           
+
+          <!--cropType-->
+          <div class="form-group inputBox">
+
+            <label>Crop type:</label>
+            <input formControlName="cropType" id="cropType" type="text" class="form-control" required>
+
+            <div *ngIf="f.cropType.touched && f.cropType.invalid" class="alert alert-danger">
+              <div *ngIf="f.cropType.errors.required" style="color: red;">crop type is required.</div>
+            </div>
+
+          </div>
+          
+          <!--cropImgUrl-->
+          <div class="form-group inputBox">
+
+            <label>Crop Image in url:</label>
+            <input formControlName="cropImgUrl" id="cropImgUrl" type="text" class="form-control" required>
+
+            <div *ngIf="f.cropImgUrl.touched && f.cropImgUrl.invalid" class="alert alert-danger">
+              <div *ngIf="f.cropImgUrl.errors.required" style="color: red;">crop url is required.</div>
+            </div>
+
+          </div>
+
+
+          <!--cropDesc-->
+          <div class="form-group inputBox">
+
+            <label>Farmer mobile :</label>
+            <input formControlName="cropDesc" id="cropDesc" type="text" class="form-control" required>
+
+            <div *ngIf="f.cropDesc.touched && f.cropDesc.invalid" class="alert alert-danger">
+              <div *ngIf="f.cropDesc.errors.required" style="color: red;">crop description is required.</div>
+            </div>
+
+          </div>
+         
+          <!--cropPrice-->
+          <div class="form-group inputBox">
+
+            <label>Crop Price:</label>
+            <input formControlName="cropPrice" id="cropPrice" type="text" class="form-control" required>
+
+            <div *ngIf="f.cropPrice.touched && f.cropPrice.invalid" class="alert alert-danger">
+              <div *ngIf="f.cropPrice.errors.required" style="color: red;">crop price is required.</div>
+            </div>
+
+          </div>
+
+
+
+          <button class="btn btn-primary" type="submit" (click)="refresh()" [disabled]="!cropForm.valid">Submit</button>
+          <button class="btn btn-secondary"  type="reset">Reset</button>
+
+
+
+        </form>
+
+
       </div>
     </div>
   </div>
+</div>
+
+
+
+              
+<!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------>
+<!---------------------------------------update crop model------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------>
+<!------------------------------------------------------------------------------------------------------------------>
+
+<div class="modal hide fade" id="updateCropModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Crop Summary </h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <form [formGroup]="cropForm1" (ngSubmit)="updateCrop()">
+         
+
+           
+
+          <!--farmerId-->
+          <div class="form-group inputBox">
+
+            <label>Farmer Id:</label>
+            <input formControlName="farmerId" id="farmerId" type="text" class="form-control" disabled="true" [(ngModel)]="userId"  required>
+
+            <div *ngIf="f1.farmerId.touched && f1.farmerId.invalid" class="alert alert-danger">
+              <div *ngIf="f1.farmerId.errors.required" style="color: red;">farmer id is required.</div>
+            </div>
+          </div>
+
+          <!--id-->
+          <div class="form-group inputBox">
+
+            <label>Crop Id:</label>
+            <input formControlName="id"   id="id" type="text" class="form-control" disabled="true" [(ngModel)]="cropToEdit.id"  required>
+
+            <div *ngIf="f1.id.touched && f1.id.invalid" class="alert alert-danger">
+              <div *ngIf="f1.id.errors.required" style="color: red;">crop id is required.</div>
+            </div>
+          </div>
+
+
+
+          <!--uploadedBy-->
+          <div class="form-group inputBox">
+
+            <label>Farmer name:</label>
+            <input formControlName="uploadedBy" id="uploadedBy" type="text" class="form-control" disabled="true" [(ngModel)]="name"  required>
+
+            <div *ngIf="f1.uploadedBy.touched && f1.uploadedBy.invalid" class="alert alert-danger">
+              <div *ngIf="f1.uploadedBy.errors.required" style="color: red;"> name is required.</div>
+            </div>
+          </div>
+
+
+          <!--cropName-->
+          <div class="form-group inputBox">
+
+            <label>Crop name:</label>
+            <input formControlName="cropName" id="cropName" type="text" class="form-control" [(ngModel)]="cropToEdit.cropName" required>
+
+            <div *ngIf="f1.cropName.touched && f1.cropName.invalid" class="alert alert-danger">
+              <div *ngIf="f1.cropName.errors.required" style="color: red;">crop name is required.</div>
+            </div>
+          </div>
+
+          <!--address-->
+          <div class="form-group inputBox">
+
+            <label>Adderss:</label>
+            <input formControlName="address" id="address" type="text" class="form-control" [(ngModel)]="cropToEdit.address" required placeholder="Hyderabad ">
+
+            <div *ngIf="f1.address.touched && f1.address.invalid" class="alert alert-danger">
+              <div *ngIf="f1.address.errors.required" style="color: red;">address is required.</div>
+            </div>
+
+          </div>
+         
+           <!--cropQty-->
+           <div class="form-group inputBox">
+
+            <label>Crop Quantity:</label>
+            <input formControlName="cropQty" id="cropQty" type="text" class="form-control" [(ngModel)]="cropToEdit.cropQty" required>
+
+            <div *ngIf="f1.cropQty.touched && f1.cropQty.invalid" class="alert alert-danger">
+              <div *ngIf="f1.cropQty.errors.required" style="color: red;">crop Qty is required.</div>
+            </div>
+
+          </div>
+           
+
+          <!--cropType-->
+          <div class="form-group inputBox">
+
+            <label>Crop type:</label>
+            <input formControlName="cropType" id="cropType" type="text" class="form-control" [(ngModel)]="cropToEdit.cropType" required>
+
+            <div *ngIf="f1.cropType.touched && f1.cropType.invalid" class="alert alert-danger">
+              <div *ngIf="f1.cropType.errors.required" style="color: red;">crop type is required.</div>
+            </div>
+
+          </div>
+          
+          <!--cropImgUrl-->
+          <div class="form-group inputBox">
+
+            <label>Crop Image in url:</label>
+            <input formControlName="cropImgUrl" id="cropImgUrl" type="text" class="form-control" [(ngModel)]="cropToEdit.cropImgUrl" required>
+
+            <div *ngIf="f1.cropImgUrl.touched && f1.cropImgUrl.invalid" class="alert alert-danger">
+              <div *ngIf="f1.cropImgUrl.errors.required" style="color: red;">crop url is required.</div>
+            </div>
+
+          </div>
+
+
+          <!--cropDesc-->
+          <div class="form-group inputBox">
+
+            <label>Farmer Mobile :</label>
+            <input formControlName="cropDesc" id="cropDesc" type="text" class="form-control" [(ngModel)]="cropToEdit.cropDesc" required>
+
+            <div *ngIf="f1.cropDesc.touched && f1.cropDesc.invalid" class="alert alert-danger">
+              <div *ngIf="f1.cropDesc.errors.required" style="color: red;">crop description is required.</div>
+            </div>
+
+          </div>
+         
+          <!--cropPrice-->
+          <div class="form-group inputBox">
+
+            <label>Crop Price:</label>
+            <input formControlName="cropPrice" id="cropPrice" type="text" class="form-control" [(ngModel)]="cropToEdit.cropPrice" required>
+
+            <div *ngIf="f1.cropPrice.touched && f1.cropPrice.invalid" class="alert alert-danger">
+              <div *ngIf="f1.cropPrice.errors.required" style="color: red;">crop price is required.</div>
+            </div>
+
+          </div>
+
+
+
+          <button class="btn btn-primary" (click)="refresh()" type="submit" [disabled]="!cropForm1.valid">Submit</button>
+          <button class="btn btn-secondary"  type="reset">Reset</button>
+
+
+
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!--------------------------payment details----------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+    <!---------------------------------------------------------------------------------------------------------------->
+
+
+
+
+    <div class="modal fade" id="print" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body" id="receipt" #receipt>
+
+
+
+
+
+
+
+                    <div bgcolor="#f6f6f6" style="color: #333; height: 100%; width: 100%;" height="100%" width="100%">
+                        <table bgcolor="#f6f6f6" cellspacing="0"
+                            style="border-collapse: collapse; padding: 40px; width: 100%;" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="5px" style="padding: 0;"></td>
+                                    <td
+                                        style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
+                                        <table width="100%" cellspacing="0" style="border-collapse: collapse;">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="padding: 0;">
+                                                        <a href="#" style="color: #348eda;" target="_blank">
+                                                            <img src="---------------------------------------"
+                                                                alt="Agriculture.com"
+                                                                style="height: 50px; max-width: 100%; width: 157px;"
+                                                                height="50" width="157" />
+                                                        </a>
+                                                    </td>
+                                                    <td style="color: #999; font-size: 12px; padding: 0; text-align: right;"
+                                                        align="right">
+                                                        Agriculture crop deal<br />
+                                                        Invoice {{myOrder.orderId}}<br />
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="5px" style="padding: 0;"></td>
+                                </tr>
+
+                                <tr>
+                                    <td width="5px" style="padding: 0;"></td>
+                                    <td bgcolor="#FFFFFF"
+                                        style="border: 1px solid #000; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+                                        <table width="100%"
+                                            style="background: #f9f9f9; border-bottom: 1px solid #eee; border-collapse: collapse; color: #999;">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="50%" style="padding: 20px;"><strong
+                                                            style="color: #333; font-size: 24px;">₹ {{myOrder.cost}}
+                                                        </strong> Paid</td>
+                                                    <td align="right" width="50%" style="padding: 20px;">Thanks for
+                                                        using <br><span class="il">Crop-deal.com</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td style="padding: 0;"></td>
+                                    <td width="5px" style="padding: 0;"></td>
+                                </tr>
+                                <tr>
+                                    <td width="5px" style="padding: 0;"></td>
+                                    <td
+                                        style="border: 1px solid #000; border-top: 0; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+                                        <table cellspacing="0"
+                                            style="border-collapse: collapse; border-left: 1px solid #000; margin: 0 auto; max-width: 600px;">
+                                            <tbody>
+                                                <tr>
+                                                    <td valign="top" style="padding: 20px;">
+                                                        <h3 style="
+                                                        border-bottom: 1px solid #000;
+                                                        color: #000;
+                                                        font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+                                                        font-size: 18px;
+                                                        font-weight: bold;
+                                                        line-height: 1.2;
+                                                        margin: 0;
+                                                        margin-bottom: 15px;
+                                                        padding-bottom: 5px;
+                                                    ">
+                                                            Summary
+                                                        </h3>
+                                                        <table cellspacing="0"
+                                                            style="border-collapse: collapse; margin-bottom: 40px;">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="padding: 5px 0;">Dealer Name</td>
+                                                                    <td align="right" style="padding: 5px 0;">{{myOrder.dealerName}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding: 5px 0;">Farmer name</td>
+                                                                    <td align="right" style="padding: 5px 0;">
+                                                                        {{myOrder.farmerName}}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding: 5px 0;">Prorated amount due</td>
+                                                                    <td align="right" style="padding: 5px 0;">₹
+                                                                        {{myOrder.cost}} </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">
+                                                                        Amount paid</td>
+                                                                    <td align="right"
+                                                                        style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">
+                                                                        ₹ {{myOrder.cost}}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="5px" style="padding: 0;"></td>
+                                </tr>
+
+                                <tr style="color: #666; font-size: 12px;">
+                                    <td width="5px" style="padding: 10px 0;"></td>
+                                    <td
+                                        style="clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 10px 0;">
+                                        <table width="100%" cellspacing="0" style="border-collapse: collapse;">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="40%" valign="top" style="padding: 10px 0;">
+                                                        <h4 style="margin: 0;">Questions?</h4>
+                                                        <p
+                                                            style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
+                                                            Please visit our
+                                                            <a href="#" style="color: #666;" target="_blank">
+                                                                Support Center
+                                                            </a>
+                                                            with any questions.
+
+                                                        </p>
+                                                    </td>
+                                                    <td width="10%" style="padding: 10px 0;">&nbsp;</td>
+                                                    <td width="40%" valign="top" style="padding: 10px 0;">
+                                                        <h4 style="margin: 0;"><span class="il">CropDeal</span></h4>
+                                                        <p
+                                                            style="color: #666; font-size: 12px; font-weight: normal; margin-bottom: 10px;">
+                                                            <a href="#">Warangal dharmasagr telangana</a>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td width="5px" style="padding: 10px 0;"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="getPDF()">print receipt</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
